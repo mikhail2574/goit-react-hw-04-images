@@ -9,22 +9,20 @@ const ImageGallery = ({ items, setSrc, setModal, setIsLoaderVisible }) => {
       document.querySelector('.ImageGallery').style.display = 'grid';
       setIsLoaderVisible(false);
     }
-  }, [items]);
+  }, [items, setIsLoaderVisible]);
 
   return (
     <ul className={`ImageGallery ${galleryVisible ? 'visible' : 'hidden'}`}>
-      {items.map(item => {
-        return (
-          <ImageGalleryItem
-            src={item.webformatURL}
-            key={item.id}
-            tags={item.tags}
-            largesrc={item.webformatURL}
-            setSrc={setSrc}
-            setModal={setModal}
-          />
-        );
-      })}
+      {items.map(item => (
+        <ImageGalleryItem
+          src={item.webformatURL}
+          key={item.id}
+          tags={item.tags}
+          largesrc={item.webformatURL}
+          setSrc={setSrc}
+          setModal={setModal}
+        />
+      ))}
     </ul>
   );
 };
