@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
 const ImageGallery = ({ items, setSrc, setModal, setIsLoaderVisible }) => {
-  const [galleryVisible, setGalleryVisible] = useState(false);
+  const [galleryVisible] = useState(false);
 
   useEffect(() => {
     if (items && items.length > 0) {
