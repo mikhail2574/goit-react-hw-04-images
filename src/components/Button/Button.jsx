@@ -24,14 +24,15 @@ const Button = ({ setItems, items, page, setPage, q, total }) => {
   };
 
   return (
-    <button
-      className="Button"
-      type="button"
-      onClick={onClick}
-      style={{ display: total <= page * 12 ? 'none' : 'block' }}
-    >
-      Load more
-    </button>
+    <>
+      {total >= page * 12 ? (
+        <button className="Button" type="button" onClick={onClick}>
+          Load more
+        </button>
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 

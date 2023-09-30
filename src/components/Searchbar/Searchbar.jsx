@@ -40,11 +40,7 @@ const SearchBar = () => {
             Notiflix.Notify.failure('Nothing was fo und for your request');
           }
           setTotal(resp.data.total);
-          if (total <= page * 12) {
-            document.querySelector('.Button').style.display = 'none';
-          } else {
-            document.querySelector('.Button').style.display = 'block';
-          }
+
           return resp.data.hits;
         })
       );

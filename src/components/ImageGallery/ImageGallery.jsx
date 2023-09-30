@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
 const ImageGallery = ({ items, setSrc, setModal, setIsLoaderVisible }) => {
-  const [galleryVisible] = useState(false);
+  const [galleryVisible] = useState(true);
 
   useEffect(() => {
     if (items && items.length > 0) {
@@ -12,18 +12,24 @@ const ImageGallery = ({ items, setSrc, setModal, setIsLoaderVisible }) => {
   }, [items, setIsLoaderVisible]);
 
   return (
-    <ul className={`ImageGallery ${galleryVisible ? 'visible' : 'hidden'}`}>
-      {items.map(item => (
-        <ImageGalleryItem
-          src={item.webformatURL}
-          key={item.id}
-          tags={item.tags}
-          largesrc={item.webformatURL}
-          setSrc={setSrc}
-          setModal={setModal}
-        />
-      ))}
-    </ul>
+    <>
+      {galleryVisible ? (
+        <ul className="ImageGallery">
+          {items.map(item => (
+            <ImageGalleryItem
+              src={item.webformatURL}
+              key={item.id}
+              tags={item.tags}
+              largesrc={item.webformatURL}
+              setSrc={setSrc}
+              setModal={setModal}
+            />
+          ))}
+        </ul>
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 
