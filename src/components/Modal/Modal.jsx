@@ -1,21 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
 const Modal = ({ modal, src, setModal }) => {
-  function handleKeyDown(e) {
-    if (e.key === 'Escape') {
-      setModal(false);
-    }
-  }
+  const handleKeyDown = useCallback(
+    e => {
+      if (e.key === 'Escape') {
+        setModal(false);
+      }
+    },
+    [setModal]
+  );
 
   useEffect(() => {
+    const onKeyDown = e => handleKeyDown(e);
+
     if (modal) {
-      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('keydown', onKeyDown);
     }
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', onKeyDown);
     };
-  }, [modal]);
+  }, [modal, handleKeyDown]);
 
   const onClick = () => {
     setModal(false);
