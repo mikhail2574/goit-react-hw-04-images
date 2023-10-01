@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
 const ImageGallery = ({ items, setSrc, setModal, setIsLoaderVisible }) => {
-  const [galleryVisible] = useState(true);
-
   useEffect(() => {
     if (items && items.length > 0) {
       document.querySelector('.ImageGallery').style.display = 'grid';
@@ -13,7 +11,7 @@ const ImageGallery = ({ items, setSrc, setModal, setIsLoaderVisible }) => {
 
   return (
     <>
-      {galleryVisible ? (
+      {
         <ul className="ImageGallery">
           {items.map(item => (
             <ImageGalleryItem
@@ -26,9 +24,7 @@ const ImageGallery = ({ items, setSrc, setModal, setIsLoaderVisible }) => {
             />
           ))}
         </ul>
-      ) : (
-        ''
-      )}
+      }
     </>
   );
 };

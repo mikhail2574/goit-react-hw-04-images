@@ -25,9 +25,9 @@ const SearchBar = () => {
     q: q,
   });
   const handleSubmit = async evt => {
-    setIsLoaderVisible(true);
-    document.querySelector('.ImageGallery').style.display = 'none';
     evt.preventDefault();
+    setTotal(0);
+    setIsLoaderVisible(true);
     setQ(evt.target.elements[1].value.trim());
     params.set('q', evt.target.elements[1].value.trim());
     if (!evt.target.elements[1].value.trim()) {
@@ -37,7 +37,7 @@ const SearchBar = () => {
       setItems(
         await axios.get(`${BASE_URL}?${params}`).then(resp => {
           if (resp.data.total === 0) {
-            Notiflix.Notify.failure('Nothing was fo und for your request');
+            Notiflix.Notify.failure('Nothing was found for your request');
           }
           setTotal(resp.data.total);
 
@@ -46,7 +46,6 @@ const SearchBar = () => {
       );
     }
   };
-
   return (
     <>
       <header className="searchbar">
@@ -63,13 +62,18 @@ const SearchBar = () => {
           />
         </form>
       </header>
-      <ImageGallery
-        setIsLoaderVisible={setIsLoaderVisible}
-        items={items}
-        setSrc={setSrc}
-        setModal={setModal}
-        handleSubmit={handleSubmit}
-      />
+      {total !== 0 ? (
+        <ImageGallery
+          setIsLoaderVisible={setIsLoaderVisible}
+          items={items}
+          setSrc={setSrc}
+          setModal={setModal}
+          handleSubmit={handleSubmit}
+        />
+      ) : (
+        ''
+      )}
+
       <Modal src={src} modal={modal} setModal={setModal} />
       {q ? (
         <Button

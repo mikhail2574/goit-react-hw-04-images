@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const ImageGalleryItem = ({ src, id, tags, largesrc, setSrc, setModal }) => {
   const imageClicked = evt => {
     setSrc(evt.target.dataset.largesrc);
@@ -19,3 +21,12 @@ const ImageGalleryItem = ({ src, id, tags, largesrc, setSrc, setModal }) => {
 };
 
 export default ImageGalleryItem;
+
+ImageGalleryItem.propTypes = {
+  src: PropTypes.string,
+  id: PropTypes.number,
+  tags: PropTypes.string,
+  largesrc: PropTypes.string,
+  setSrc: PropTypes.func,
+  setModal: PropTypes.func,
+};

@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 const Modal = ({ modal, src, setModal }) => {
   const handleKeyDown = useCallback(
@@ -42,3 +43,9 @@ const Modal = ({ modal, src, setModal }) => {
 };
 
 export default Modal;
+
+Modal.propTypes = {
+  modal: PropTypes.bool,
+  src: PropTypes.string,
+  setModal: PropTypes.func,
+};
