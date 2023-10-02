@@ -1,18 +1,11 @@
-const Button = ({ items, page, setPage, total }) => {
+const Button = ({ setPage }) => {
   const onClick = () => {
-    setPage(page + 1);
-    console.log(items);
+    setPage(prevState => prevState + 1);
   };
   return (
-    <>
-      {total >= page * 12 ? (
-        <button className="Button" type="button" onClick={onClick}>
-          Load more
-        </button>
-      ) : (
-        ''
-      )}
-    </>
+    <button className="Button" type="button" onClick={onClick}>
+      Load more
+    </button>
   );
 };
 

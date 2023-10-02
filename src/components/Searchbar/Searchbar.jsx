@@ -86,25 +86,19 @@ const SearchBar = () => {
       </header>
       {total !== 0 ? (
         <ImageGallery
-          setIsLoaderVisible={setIsLoaderVisible}
           items={items}
           setSrc={setSrc}
           setModal={setModal}
           handleSubmit={handleSubmit}
+          setIsLoaderVisible={setIsLoaderVisible}
         />
       ) : (
         ''
       )}
 
       <Modal src={src} modal={modal} setModal={setModal} />
-      {q ? (
-        <Button
-          page={page}
-          setPage={setPage}
-          items={items}
-          q={q}
-          total={total}
-        />
+      {total >= page * 12 ? (
+        <Button page={page} setPage={setPage} items={items} q={q} />
       ) : (
         ''
       )}
