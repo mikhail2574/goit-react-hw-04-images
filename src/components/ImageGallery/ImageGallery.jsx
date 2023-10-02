@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
 const ImageGallery = ({ items, setSrc, setModal, setIsLoaderVisible }) => {
+  console.log(items);
   useEffect(() => {
     if (items && items.length > 0) {
       document.querySelector('.ImageGallery').style.display = 'grid';

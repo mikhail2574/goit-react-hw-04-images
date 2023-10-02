@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
 import Modal from 'components/Modal/Modal';
@@ -16,36 +16,57 @@ const SearchBar = () => {
   const [q, setQ] = useState('');
   const [total, setTotal] = useState(0);
   const [IsLoaderVisible, setIsLoaderVisible] = useState(false);
-  const params = new URLSearchParams({
-    page: 1,
-    image_type: 'photo',
-    orientation: 'horizontal',
-    per_page: 12,
-    key: KEY,
-    q: q,
-  });
-  const handleSubmit = async evt => {
+
+  const handleSubmit = evt => {
     evt.preventDefault();
+    const query = evt.target.elements[1].value.trim();
+    if (q === query) {
+      return;
+    }
+    setItems([]);
     setTotal(0);
     setIsLoaderVisible(true);
-    setQ(evt.target.elements[1].value.trim());
-    params.set('q', evt.target.elements[1].value.trim());
-    if (!evt.target.elements[1].value.trim()) {
-      Notiflix.Notify.failure('Noo');
+    setQ(query);
+    if (!query) {
+      Notiflix.Notify.failure("Don't do it!");
       return;
-    } else {
-      setItems(
-        await axios.get(`${BASE_URL}?${params}`).then(resp => {
-          if (resp.data.total === 0) {
-            Notiflix.Notify.failure('Nothing was found for your request');
-          }
-          setTotal(resp.data.total);
-
-          return resp.data.hits;
-        })
-      );
     }
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams({
+      page,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      per_page: 12,
+      key: KEY,
+      q,
+    });
+
+    const fetchData = async () => {
+      try {
+        // Оновлюємо значення q у params перед запитом
+        params.set('q', q);
+        params.set('page', page);
+        // Очищаємо список елементів перед новим запитом
+
+        const resp = await axios.get(`${BASE_URL}?${params}`);
+        if (resp.data.total === 0) {
+          Notiflix.Notify.failure('Nothing was found for your request');
+        }
+        setTotal(resp.data.total);
+        setItems(prevItems => [...prevItems, ...resp.data.hits]);
+        setIsLoaderVisible(false);
+      } catch (error) {
+        console.error('Error fetching items:', error);
+      }
+    };
+
+    if (q) {
+      fetchData();
+    }
+  }, [page, q]);
+
   return (
     <>
       <header className="searchbar">
@@ -77,7 +98,6 @@ const SearchBar = () => {
       <Modal src={src} modal={modal} setModal={setModal} />
       {q ? (
         <Button
-          setItems={setItems}
           page={page}
           setPage={setPage}
           items={items}
