@@ -65,7 +65,7 @@ const SearchBar = () => {
     if (q) {
       fetchData();
     }
-  }, [page, q]);
+  }, [page, q, BASE_URL]);
 
   return (
     <>
