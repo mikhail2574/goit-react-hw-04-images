@@ -45,7 +45,7 @@ const Modal = ({ modal, src, setModal }) => {
 export default Modal;
 
 Modal.propTypes = {
-  modal: PropTypes.bool,
-  src: PropTypes.string,
+  modal: PropTypes.string,
+  src: PropTypes.bool,
   setModal: PropTypes.func,
 };

@@ -24,6 +24,7 @@ const SearchBar = () => {
       return;
     }
     setItems([]);
+    setPage(1);
     setTotal(0);
     setIsLoaderVisible(true);
     setQ(query);
